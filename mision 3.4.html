@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Chosen Palette: Energetic & Playful -->
+    <!-- Application Structure Plan: The SPA is structured as a linear, scrolling narrative that mirrors the gamified learning path of the source document. It begins with motivation (Objectives & Rewards), provides core knowledge (The Detective's Toolkit), demonstrates practical application (The Case File Challenge), and outlines the required steps (Investigation Process). This top-down structure is intuitive for a learning module, guiding the user from 'what' and 'why' to 'how'. -->
+    <!-- Visualization & Content Choices: 
+        - Mission Objectives: Goal: Inform/Motivate. Method: Text with large Unicode icons and a Chart.js Donut Chart to visually break down the XP rewards, making them more tangible and engaging. Justification: A chart is more visually appealing than a simple list for quantitative data like points.
+        - Core Functions (Detective's Toolkit): Goal: Organize/Inform. Method: A grid of styled cards (structured HTML/CSS with Tailwind). Each card represents a function, using a Unicode icon, a title, a description, and a code block. Justification: Cards are a standard, scannable, and mobile-friendly way to present distinct but related pieces of information. NO SVG/Mermaid used.
+        - The Challenge (Case File): Goal: Compare. Method: A side-by-side "before and after" comparison using two HTML tables. Justification: This classic layout is extremely effective for showing transformation and demonstrating the value of the skills being taught. NO SVG/Mermaid used.
+        - Mission Process: Goal: Organize. Method: A flowchart built with structured HTML and CSS (flexbox and pseudo-elements for arrows on desktop). Justification: A flowchart clearly visualizes a step-by-step process, which is the core of this section. This method avoids SVG/Mermaid as required.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <title>Infografía: Misión 3.4 - El Detective del Texto</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa;
+            color: #343a40;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 450px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .flowchart-step {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: 100%;
+        }
+        .flowchart-step:not(:last-child)::after {
+            content: '↓';
+            font-size: 2.5rem;
+            color: #F15BB5;
+            margin-top: 1rem;
+        }
+        @media (min-width: 1024px) {
+            .flowchart-step:not(:last-child)::after {
+                content: '→';
+                position: absolute;
+                left: 100%;
+                top: 50%;
+                transform: translate(0, -50%);
+                margin-top: 0;
+            }
+        }
+        .function-card {
+            background-color: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            border-left: 8px solid;
+            transition: transform 0.3s ease;
+        }
+        .function-card:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <main class="container mx-auto p-4 md:p-8 max-w-7xl">
+
+        <header class="text-center my-8 md:my-12">
+            <h1 class="text-4xl md:text-6xl font-black tracking-tight"><span class="text-transparent bg-clip-text bg-gradient-to-r from-[#F15BB5] to-[#F7B801]">Misión 3.4</span></h1>
+            <h2 class="text-3xl md:text-5xl font-bold mt-2">El Detective del Texto</h2>
+            <p class="mt-4 text-lg md:text-xl text-slate-600 max-w-3xl mx-auto">Prepara tu lupa. En esta misión, descifrarás los mensajes ocultos en los datos, uniendo y separando texto como un verdadero detective.</p>
+        </header>
+        
+        <section id="objective-rewards" class="my-16 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            <div class="bg-white rounded-2xl shadow-xl p-8 order-2 lg:order-1 border-t-8 border-[#F15BB5]">
+                <h3 class="text-3xl font-bold text-center mb-6">El Caso y la Recompensa</h3>
+                <div class="flex items-start bg-pink-50 p-4 rounded-lg mb-4">
+                    <span class="text-5xl mr-4">🎯</span>
+                    <div>
+                        <h4 class="font-bold text-[#9b2242]">Objetivo Principal</h4>
+                        <p class="text-slate-600">Usa las funciones de texto para <strong class="text-[#F15BB5]">unir, extraer y medir</strong> información en "El Caso del Dato Fragmentado".</p>
+                    </div>
+                </div>
+                 <div class="flex items-start bg-pink-50 p-4 rounded-lg">
+                    <span class="text-5xl mr-4">🏆</span>
+                    <div>
+                        <h4 class="font-bold text-[#9b2242]">Insignia de Logro</h4>
+                        <p class="text-slate-600">Gana la insignia <strong class="text-[#F15BB5]">"Maestro del Texto"</strong> y acumula más de <strong class="text-[#F15BB5]">450+ XP</strong>.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="order-1 lg:order-2">
+                <div class="bg-white rounded-2xl shadow-xl p-8 flex flex-col">
+                    <h3 class="text-xl font-bold text-center mb-4">Distribución de Pistas (XP)</h3>
+                    <p class="text-center text-slate-500 mb-4">Cada función dominada y pregunta resuelta te acerca al final del caso.</p>
+                    <div class="chart-container">
+                        <canvas id="xpChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="toolkit" class="my-16">
+             <h2 class="text-3xl font-bold text-center mb-10">El Kit del Detective</h2>
+             <p class="text-center text-slate-600 mb-8 max-w-3xl mx-auto">Estas cuatro herramientas son todo lo que necesitas para resolver cualquier misterio textual en tus hojas de cálculo.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <div class="function-card" style="border-color: #F15BB5;">
+                    <div class="flex items-center mb-2"><span class="text-4xl mr-3">🔗</span><h4 class="text-xl font-bold">CONCATENAR (&)</h4></div>
+                    <p class="text-slate-600 mb-3">Une dos o más fragmentos de texto en uno solo. El operador `&` es tu atajo más rápido.</p>
+                    <code class="bg-slate-100 p-2 rounded-md font-mono text-sm block text-center">=A1 & " " & B1</code>
+                </div>
+
+                <div class="function-card" style="border-color: #4ECDC4;">
+                    <div class="flex items-center mb-2"><span class="text-4xl mr-3">📏</span><h4 class="text-xl font-bold">LARGO</h4></div>
+                    <p class="text-slate-600 mb-3">Mide la longitud exacta de una cadena de texto, contando cada carácter y espacio.</p>
+                    <code class="bg-slate-100 p-2 rounded-md font-mono text-sm block text-center">=LARGO(A1)</code>
+                </div>
+                
+                <div class="function-card" style="border-color: #F7B801;">
+                     <div class="flex items-center mb-2"><span class="text-4xl mr-3">⬅️</span><h4 class="text-xl font-bold">IZQUIERDA</h4></div>
+                    <p class="text-slate-600 mb-3">Extrae un número específico de caracteres comenzando desde el inicio (izquierda) del texto.</p>
+                    <code class="bg-slate-100 p-2 rounded-md font-mono text-sm block text-center">=IZQUIERDA(A1, 3)</code>
+                </div>
+
+                <div class="function-card" style="border-color: #FF6B6B;">
+                    <div class="flex items-center mb-2"><span class="text-4xl mr-3">➡️</span><h4 class="text-xl font-bold">DERECHA</h4></div>
+                    <p class="text-slate-600 mb-3">Extrae un número específico de caracteres comenzando desde el final (derecha) del texto.</p>
+                    <code class="bg-slate-100 p-2 rounded-md font-mono text-sm block text-center">=DERECHA(A1, 3)</code>
+                </div>
+            </div>
+        </section>
+        
+        <section id="challenge" class="my-16">
+            <h2 class="text-3xl font-bold text-center mb-10">El Caso del Dato Fragmentado</h2>
+            <p class="text-center text-slate-600 mb-8 max-w-3xl mx-auto">Las pistas están desordenadas. Usa tu kit de detective para organizar la información y presentar un reporte claro y unificado.</p>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                 <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h4 class="text-xl font-bold mb-4 text-center">Pistas Recibidas</h4>
+                    <table class="w-full text-sm border-collapse">
+                        <thead><tr class="bg-slate-200 text-left"><th class="p-2 border">ID Empleado</th><th class="p-2 border">Nombre</th><th class="p-2 border">Apellido</th></tr></thead>
+                        <tbody>
+                            <tr><td class="p-2 border font-mono">FIN-101- Ventas</td><td class="p-2 border">Ana</td><td class="p-2 border">Solis</td></tr>
+                            <tr><td class="p-2 border font-mono">MKT-202- Medios</td><td class="p-2 border">Luis</td><td class="p-2 border">Rojas</td></tr>
+                            <tr><td class="p-2 border font-mono">OPE-303- Logist</td><td class="p-2 border">Carla</td><td class="p-2 border">Mora</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg border-4 border-dashed border-[#4ECDC4]">
+                    <h4 class="text-xl font-bold mb-4 text-center">Reporte Resuelto</h4>
+                    <table class="w-full text-sm border-collapse">
+                         <thead><tr class="bg-teal-100 text-left"><th class="p-2 border">Depto.</th><th class="p-2 border">Nombre Completo</th><th class="p-2 border">ID Numérico</th></tr></thead>
+                        <tbody>
+                            <tr><td class="p-2 border font-mono text-teal-700">FIN</td><td class="p-2 border">Ana Solis</td><td class="p-2 border font-mono text-teal-700">101</td></tr>
+                            <tr><td class="p-2 border font-mono text-teal-700">MKT</td><td class="p-2 border">Luis Rojas</td><td class="p-2 border font-mono text-teal-700">202</td></tr>
+                            <tr><td class="p-2 border font-mono text-teal-700">OPE</td><td class="p-2 border">Carla Mora</td><td class="p-2 border font-mono text-teal-700">303</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section id="mission-process" class="my-16">
+            <h2 class="text-3xl font-bold text-center mb-10">Tu Proceso de Investigación</h2>
+            <div class="bg-white rounded-2xl shadow-xl p-8">
+                 <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
+                    <div class="flowchart-step">
+                        <div class="bg-pink-200 text-3xl font-bold rounded-full w-24 h-24 flex items-center justify-center border-4 border-[#F15BB5]">🎬</div>
+                        <h3 class="mt-4 font-bold">1. Aprende</h3>
+                        <p class="text-sm text-slate-500">Mira "El Laboratorio de Textos".</p>
+                    </div>
+                     <div class="flowchart-step">
+                        <div class="bg-yellow-200 text-3xl font-bold rounded-full w-24 h-24 flex items-center justify-center border-4 border-[#F7B801]">🗺️</div>
+                        <h3 class="mt-4 font-bold">2. Consulta</h3>
+                        <p class="text-sm text-slate-500">Usa "El Kit del Detective".</p>
+                    </div>
+                     <div class="flowchart-step">
+                        <div class="bg-cyan-200 text-3xl font-bold rounded-full w-24 h-24 flex items-center justify-center border-4 border-[#4ECDC4]">🕵️</div>
+                        <h3 class="mt-4 font-bold">3. Practica</h3>
+                        <p class="text-sm text-slate-500">Investiga en la "Escena del Crimen".</p>
+                    </div>
+                    <div class="flowchart-step">
+                        <div class="bg-red-200 text-3xl font-bold rounded-full w-24 h-24 flex items-center justify-center border-4 border-[#FF6B6B]">🧠</div>
+                        <h3 class="mt-4 font-bold">4. Demuestra</h3>
+                        <p class="text-sm text-slate-500">Pasa "El Interrogatorio".</p>
+                    </div>
+                    <div class="flowchart-step">
+                        <div class="bg-gradient-to-br from-[#4ECDC4] to-[#45B7D1] text-white text-3xl font-bold rounded-full w-24 h-24 flex items-center justify-center border-4 border-cyan-300">🏆</div>
+                        <h3 class="mt-4 font-bold">5. Conquista</h3>
+                        <p class="text-sm text-slate-500">¡Caso cerrado! Gana tu insignia.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <footer class="text-center p-6 bg-slate-800 text-white mt-12">
+        <p>Infografía generada para la Misión 3.4 del curso "El Desafío del Dato Organizado".</p>
+    </footer>
+
+    <script>
+        function wrapText(str) {
+            const words = str.split(' ');
+            const lines = [];
+            let currentLine = words[0] || '';
+            const maxChars = 16;
+
+            for (let i = 1; i < words.length; i++) {
+                if ((currentLine + " " + words[i]).length > maxChars) {
+                    lines.push(currentLine);
+                    currentLine = words[i];
+                } else {
+                    currentLine += " " + words[i];
+                }
+            }
+            lines.push(currentLine);
+            return lines.length > 1 ? lines : str;
+        }
+
+        const xpCtx = document.getElementById('xpChart').getContext('2d');
+        const xpChart = new Chart(xpCtx, {
+            type: 'pie',
+            data: {
+                labels: [
+                    'Caso del Dato Fragmentado', 
+                    'Interrogatorio (5 preguntas)', 
+                    'Bono por Creatividad'
+                ].map(wrapText),
+                datasets: [{
+                    label: 'Puntos de Experiencia (XP)',
+                    data: [150, 325, 50],
+                    backgroundColor: [
+                        '#F15BB5',
+                        '#4ECDC4',
+                        '#F7B801',
+                    ],
+                    borderColor: '#FFFFFF',
+                    borderWidth: 4,
+                    hoverOffset: 10
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: function(tooltipItems) {
+                                const item = tooltipItems[0];
+                                let label = item.chart.data.labels[item.dataIndex];
+                                if (Array.isArray(label)) {
+                                  return label.join(' ');
+                                } else {
+                                  return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

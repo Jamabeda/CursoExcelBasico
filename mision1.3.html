@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía: Misión 1.3 - El Dato Primario</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F0F7FF; 
+            color: #334155;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 450px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .flowchart-step {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: 100%;
+        }
+        .flowchart-step:not(:last-child)::after {
+            content: '↓';
+            font-size: 2.5rem;
+            color: #60A5FA;
+            margin-top: 1rem;
+        }
+        @media (min-width: 1024px) {
+            .flowchart-step:not(:last-child)::after {
+                content: '→';
+                position: absolute;
+                left: 100%;
+                top: 50%;
+                transform: translate(0, -50%);
+                margin-top: 0;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <main class="container mx-auto p-4 md:p-8 max-w-7xl">
+
+        <header class="text-center my-8 md:my-12">
+            <h1 class="text-4xl md:text-6xl font-black tracking-tight"><span class="text-transparent bg-clip-text bg-gradient-to-r from-[#1E3A8A] to-[#3B82F6]">Misión 1.3</span></h1>
+            <h2 class="text-3xl md:text-5xl font-bold mt-2">El Dato Primario</h2>
+            <p class="mt-4 text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">¡Es hora de poblar tu cuartel! Aprende a introducir datos con precisión y a desatar el poder del Autorrelleno.</p>
+        </header>
+        
+        <section id="objective-rewards" class="my-16 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            <div class="bg-white rounded-2xl shadow-lg p-8 order-2 lg:order-1">
+                <h3 class="text-3xl font-bold text-center mb-6">Tu Objetivo y Recompensas</h3>
+                <div class="flex items-start bg-blue-50 p-4 rounded-lg mb-4">
+                    <span class="text-5xl mr-4">🎯</span>
+                    <div>
+                        <h4 class="font-bold">Objetivo Principal</h4>
+                        <p class="text-gray-600">Introduce y edita <strong class="text-[#3B82F6]">4 tipos de datos</strong> y domina el <strong class="text-[#3B82F6]">Autorrelleno</strong> para generar series de información.</p>
+                    </div>
+                </div>
+                 <div class="flex items-start bg-blue-50 p-4 rounded-lg">
+                    <span class="text-5xl mr-4">🏆</span>
+                    <div>
+                        <h4 class="font-bold">Insignia de Logro</h4>
+                        <p class="text-gray-600">Completa los desafíos para ganar la insignia <strong class="text-[#3B82F6]">"Sembrador de Datos"</strong> y acumula hasta <strong class="text-[#3B82F6]">300+ XP</strong>.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="order-1 lg:order-2">
+                <div class="bg-white rounded-2xl shadow-lg p-8 flex flex-col">
+                    <h3 class="text-xl font-bold text-center mb-4">Puntos de Experiencia (XP) en Juego</h3>
+                     <p class="text-center text-gray-500 mb-4">Cada desafío completado te acerca a la maestría.</p>
+                    <div class="chart-container">
+                        <canvas id="xpChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="data-types" class="my-16">
+             <h2 class="text-3xl font-bold text-center mb-10">Clasifica tu Información</h2>
+             <p class="text-center text-gray-600 mb-8 max-w-2xl mx-auto">Cada dato tiene su lugar. Aprende a distinguirlos para que Excel trabaje para ti, no en tu contra.</p>
+             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white p-6 rounded-xl shadow-lg text-center transform hover:scale-105 transition-transform duration-300">
+                    <div class="text-6xl mb-3">📝</div>
+                    <h4 class="text-xl font-bold mb-2">Texto</h4>
+                    <p class="text-gray-600">Nombres, descripciones, categorías. Se alinea a la izquierda por defecto.</p>
+                </div>
+                 <div class="bg-white p-6 rounded-xl shadow-lg text-center transform hover:scale-105 transition-transform duration-300">
+                    <div class="text-6xl mb-3">🔢</div>
+                    <h4 class="text-xl font-bold mb-2">Número</h4>
+                    <p class="text-gray-600">Cantidades, precios, medidas. Se alinea a la derecha. ¡Listos para calcular!</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg text-center transform hover:scale-105 transition-transform duration-300">
+                    <div class="text-6xl mb-3">📅</div>
+                    <h4 class="text-xl font-bold mb-2">Fecha/Hora</h4>
+                    <p class="text-gray-600">Días, meses, años, horas. Excel los entiende como números para poder operar con ellos.</p>
+                </div>
+                 <div class="bg-white p-6 rounded-xl shadow-lg text-center transform hover:scale-105 transition-transform duration-300">
+                    <div class="text-6xl mb-3">✅</div>
+                    <h4 class="text-xl font-bold mb-2">Lógico</h4>
+                    <p class="text-gray-600">Solo dos opciones: VERDADERO o FALSO. Fundamental para tomar decisiones.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="autofill-power" class="my-16">
+            <h2 class="text-3xl font-bold text-center mb-10">El Poder del Autorrelleno</h2>
+            <p class="text-center text-gray-600 mb-8 max-w-2xl mx-auto">Esta es tu herramienta secreta para la eficiencia. Arrastra el pequeño cuadrado en la esquina de la celda (el controlador de relleno) y observa la magia.</p>
+            <div class="bg-white rounded-2xl shadow-lg p-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <h4 class="text-xl font-bold mb-4">Generar Series</h4>
+                    <p class="mb-4 text-gray-600">Dale a Excel un patrón y él hará el resto. Ideal para calendarios, numeraciones y secuencias.</p>
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <span class="inline-block border-2 border-gray-400 p-2 rounded bg-gray-100 font-mono">Enero</span>
+                            <span class="mx-3 text-2xl font-bold text-blue-500">→</span>
+                            <span class="inline-block border-2 border-dashed border-gray-400 p-2 rounded bg-gray-50 font-mono text-gray-500">Feb, Mar, Abr...</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="inline-block border-2 border-gray-400 p-2 rounded bg-gray-100 font-mono">Lunes</span>
+                            <span class="mx-3 text-2xl font-bold text-blue-500">→</span>
+                            <span class="inline-block border-2 border-dashed border-gray-400 p-2 rounded bg-gray-50 font-mono text-gray-500">Mar, Mié, Jue...</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="inline-block border-2 border-gray-400 p-2 rounded bg-gray-100 font-mono">Q1</span>
+                            <span class="mx-3 text-2xl font-bold text-blue-500">→</span>
+                            <span class="inline-block border-2 border-dashed border-gray-400 p-2 rounded bg-gray-50 font-mono text-gray-500">Q2, Q3, Q4</span>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-xl font-bold mb-4">Copiar y Numerar</h4>
+                    <p class="mb-4 text-gray-600">Arrastra para duplicar contenido o crear secuencias numéricas sin esfuerzo.</p>
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <span class="inline-block border-2 border-gray-400 p-2 rounded bg-gray-100 font-mono">Producto A</span>
+                            <span class="mx-3 text-2xl font-bold text-blue-500">→</span>
+                            <span class="inline-block border-2 border-dashed border-gray-400 p-2 rounded bg-gray-50 font-mono text-gray-500">Producto A, A...</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="inline-block border-2 border-gray-400 p-2 rounded bg-gray-100 font-mono">1</span>
+                            <span class="mx-3 text-2xl font-bold text-blue-500">→</span>
+                            <span class="inline-block border-2 border-dashed border-gray-400 p-2 rounded bg-gray-50 font-mono text-gray-500">2, 3, 4, 5...</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="inline-block border-2 border-gray-400 p-2 rounded bg-gray-100 font-mono">5</span>
+                            <span class="mx-3 text-2xl font-bold text-blue-500">→</span>
+                            <span class="inline-block border-2 border-dashed border-gray-400 p-2 rounded bg-gray-50 font-mono text-gray-500">10, 15, 20...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="mission-process" class="my-16">
+            <h2 class="text-3xl font-bold text-center mb-10">Tu Plan de Ataque</h2>
+            <div class="bg-white rounded-2xl shadow-lg p-8">
+                 <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
+                    <div class="flowchart-step">
+                        <div class="bg-blue-200 text-3xl font-bold rounded-full w-24 h-24 flex items-center justify-center border-4 border-blue-400">🎬</div>
+                        <h3 class="mt-4 font-bold">1. Aprende</h3>
+                        <p class="text-sm text-gray-500">Mira el tutorial "La Siembra Perfecta".</p>
+                    </div>
+                     <div class="flowchart-step">
+                        <div class="bg-blue-200 text-3xl font-bold rounded-full w-24 h-24 flex items-center justify-center border-4 border-blue-400">🗺️</div>
+                        <h3 class="mt-4 font-bold">2. Consulta</h3>
+                        <p class="text-sm text-gray-500">Revisa "El Manual del Sembrador".</p>
+                    </div>
+                     <div class="flowchart-step">
+                        <div class="bg-blue-200 text-3xl font-bold rounded-full w-24 h-24 flex items-center justify-center border-4 border-blue-400">🌱</div>
+                        <h3 class="mt-4 font-bold">3. Practica</h3>
+                        <p class="text-sm text-gray-500">Cultiva en "El Huerto de Datos".</p>
+                    </div>
+                    <div class="flowchart-step">
+                        <div class="bg-blue-200 text-3xl font-bold rounded-full w-24 h-24 flex items-center justify-center border-4 border-blue-400">🧩</div>
+                        <h3 class="mt-4 font-bold">4. Demuestra</h3>
+                        <p class="text-sm text-gray-500">Resuelve el "Puzzle de Series".</p>
+                    </div>
+                    <div class="flowchart-step">
+                        <div class="bg-gradient-to-br from-[#60A5FA] to-[#1E40AF] text-white text-3xl font-bold rounded-full w-24 h-24 flex items-center justify-center border-4 border-blue-300">🏆</div>
+                        <h3 class="mt-4 font-bold">5. Conquista</h3>
+                        <p class="text-sm text-gray-500">¡Gana tu insignia y tus puntos!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <footer class="text-center p-6 bg-slate-800 text-white mt-12">
+        <p>Infografía generada para la Misión 1.3 del curso "El Desafío del Dato Organizado".</p>
+    </footer>
+
+    <script>
+        function wrapText(str) {
+            const words = str.split(' ');
+            const lines = [];
+            let currentLine = words[0] || '';
+            const maxChars = 16;
+
+            for (let i = 1; i < words.length; i++) {
+                if ((currentLine + " " + words[i]).length > maxChars) {
+                    lines.push(currentLine);
+                    currentLine = words[i];
+                } else {
+                    currentLine += " " + words[i];
+                }
+            }
+            lines.push(currentLine);
+            return lines.length > 1 ? lines : str;
+        }
+
+        const xpCtx = document.getElementById('xpChart').getContext('2d');
+        const xpChart = new Chart(xpCtx, {
+            type: 'doughnut',
+            data: {
+                labels: [
+                    'Desafío Sembrador Rápido', 
+                    'Puzzle de Series (x4)', 
+                    'Bono por Precisión (Opcional)'
+                ].map(wrapText),
+                datasets: [{
+                    label: 'Puntos de Experiencia (XP)',
+                    data: [80, 160, 50],
+                    backgroundColor: [
+                        '#60A5FA', 
+                        '#2563EB',
+                        '#93C5FD'
+                    ],
+                    borderColor: '#FFFFFF',
+                    borderWidth: 4,
+                    hoverOffset: 10
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: function(tooltipItems) {
+                                const item = tooltipItems[0];
+                                let label = item.chart.data.labels[item.dataIndex];
+                                if (Array.isArray(label)) {
+                                  return label.join(' ');
+                                } else {
+                                  return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

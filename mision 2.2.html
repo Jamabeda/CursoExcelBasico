@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía: Misión 2.2 - La Magia de los Números</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F0F7FF;
+            color: #0B1C48;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 450px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .flowchart-step {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: 100%;
+        }
+        .flowchart-step:not(:last-child)::after {
+            content: '↓';
+            font-size: 2.5rem;
+            color: #3B82F6;
+            margin-top: 1rem;
+        }
+        @media (min-width: 1024px) {
+            .flowchart-step:not(:last-child)::after {
+                content: '→';
+                position: absolute;
+                left: 100%;
+                top: 50%;
+                transform: translate(0, -50%);
+                margin-top: 0;
+            }
+        }
+        .number-card-before, .number-card-after {
+            background-color: #EBF4FF;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-family: monospace;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border: 2px solid #93C5FD;
+        }
+         .number-card-after {
+            background-color: #DBEAFE;
+            color: #1E3A8A;
+         }
+    </style>
+</head>
+<body class="antialiased">
+
+    <main class="container mx-auto p-4 md:p-8 max-w-7xl">
+
+        <header class="text-center my-8 md:my-12">
+            <h1 class="text-4xl md:text-6xl font-black tracking-tight"><span class="text-transparent bg-clip-text bg-gradient-to-r from-[#1E3A8A] to-[#3B82F6]">Misión 2.2</span></h1>
+            <h2 class="text-3xl md:text-5xl font-bold mt-2">La Magia de los Números</h2>
+            <p class="mt-4 text-lg md:text-xl text-slate-600 max-w-3xl mx-auto">¡Es hora de que tus cifras hablen! Transfórmalas en información clara y poderosa.</p>
+        </header>
+        
+        <section id="objective-rewards" class="my-16 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            <div class="bg-white rounded-2xl shadow-xl p-8 order-2 lg:order-1 border-t-8 border-[#3B82F6]">
+                <h3 class="text-3xl font-bold text-center mb-6">Tu Misión de Alquimista</h3>
+                <div class="flex items-start bg-blue-50 p-4 rounded-lg mb-4">
+                    <span class="text-5xl mr-4">🎯</span>
+                    <div>
+                        <h4 class="font-bold text-[#1E3A8A]">Objetivo Principal</h4>
+                        <p class="text-slate-600">Aplica <strong class="text-[#3B82F6]">6+ tipos de formato numérico</strong> para demostrar su impacto en la legibilidad de los datos.</p>
+                    </div>
+                </div>
+                 <div class="flex items-start bg-blue-50 p-4 rounded-lg">
+                    <span class="text-5xl mr-4">🏆</span>
+                    <div>
+                        <h4 class="font-bold text-[#1E3A8A]">Insignia de Logro</h4>
+                        <p class="text-slate-600">Gana la insignia <strong class="text-[#3B82F6]">"Alquimista Numérico"</strong> y acumula más de <strong class="text-[#3B82F6]">300+ XP</strong>.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="order-1 lg:order-2">
+                <div class="bg-white rounded-2xl shadow-xl p-8 flex flex-col">
+                    <h3 class="text-xl font-bold text-center mb-4">Puntos de Experiencia (XP) a tu Alcance</h3>
+                    <p class="text-center text-slate-500 mb-4">Completa cada desafío para ganar valiosos puntos.</p>
+                    <div class="chart-container">
+                        <canvas id="xpChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="alchemist-challenge" class="my-16">
+             <h2 class="text-3xl font-bold text-center mb-10">El Reto del Alquimista</h2>
+             <p class="text-center text-slate-600 mb-8 max-w-3xl mx-auto">Tus cifras en bruto esperan ser transformadas. Aplica el formato correcto según las instrucciones para revelar su verdadero significado.</p>
+             <div class="bg-white rounded-2xl shadow-xl p-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="text-xl font-bold mb-4 text-center">ANTES: Datos en Bruto</h4>
+                        <table class="w-full text-sm border-collapse">
+                            <thead><tr class="bg-slate-100"><td class="p-2 border font-semibold">Concepto</td><td class="p-2 border font-semibold text-right">Valor</td></tr></thead>
+                            <tbody>
+                                <tr><td class="p-2 border">Ventas</td><td class="p-2 border text-right">125430.75</td></tr>
+                                <tr><td class="p-2 border bg-slate-50">Crecimiento</td><td class="p-2 border text-right bg-slate-50">0.155</td></tr>
+                                <tr><td class="p-2 border">Fecha de Reporte</td><td class="p-2 border text-right">45388</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="border-4 border-dashed border-[#93C5FD] rounded-lg p-4">
+                        <h4 class="text-xl font-bold mb-4 text-center">DESPUÉS: Información Clara</h4>
+                        <table class="w-full text-sm border-collapse">
+                            <thead><tr class="bg-blue-100"><td class="p-2 border border-blue-300 font-semibold">Concepto</td><td class="p-2 border border-blue-300 font-semibold text-right">Valor</td></tr></thead>
+                            <tbody>
+                                <tr><td class="p-2 border border-blue-200">Ventas</td><td class="p-2 border border-blue-200 text-right font-mono">$ 125,430.75</td></tr>
+                                <tr class="bg-blue-50"><td class="p-2 border border-blue-200">Crecimiento</td><td class="p-2 border border-blue-200 text-right font-mono">15.50%</td></tr>
+                                <tr><td class="p-2 border border-blue-200">Fecha de Reporte</td><td class="p-2 border border-blue-200 text-right font-mono">08-Apr-2024</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="spellbook" class="my-16">
+            <h2 class="text-3xl font-bold text-center mb-10">Tu Libro de Hechizos Numéricos</h2>
+            <p class="text-center text-slate-600 mb-8 max-w-2xl mx-auto">Cada número tiene un propósito. Usa el "hechizo" de formato correcto para revelarlo.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-xl shadow-lg text-center transform hover:scale-105 transition-transform duration-300">
+                    <div class="text-6xl mb-3">💰</div>
+                    <h4 class="text-xl font-bold mb-2">Moneda / Contabilidad</h4>
+                    <p class="text-slate-600 mb-4">Ideal para valores financieros. Alinea símbolos y decimales para fácil lectura.</p>
+                    <div class="flex items-center justify-center gap-2"><span class="number-card-before">1234.5</span><span>→</span><span class="number-card-after">$1,234.50</span></div>
+                </div>
+                 <div class="bg-white p-6 rounded-xl shadow-lg text-center transform hover:scale-105 transition-transform duration-300">
+                    <div class="text-6xl mb-3">📈</div>
+                    <h4 class="text-xl font-bold mb-2">Porcentaje</h4>
+                    <p class="text-slate-600 mb-4">Convierte valores decimales en porcentajes para mostrar proporciones y crecimiento.</p>
+                    <div class="flex items-center justify-center gap-2"><span class="number-card-before">0.952</span><span>→</span><span class="number-card-after">95.20%</span></div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg text-center transform hover:scale-105 transition-transform duration-300">
+                    <div class="text-6xl mb-3">📅</div>
+                    <h4 class="text-xl font-bold mb-2">Fecha Corta/Larga</h4>
+                    <p class="text-slate-600 mb-4">Representa números seriales como fechas legibles para el ser humano.</p>
+                    <div class="flex items-center justify-center gap-2"><span class="number-card-before">45388</span><span>→</span><span class="number-card-after">08/04/2024</span></div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg text-center transform hover:scale-105 transition-transform duration-300">
+                    <div class="text-6xl mb-3">⏱️</div>
+                    <h4 class="text-xl font-bold mb-2">Hora</h4>
+                    <p class="text-slate-600 mb-4">Convierte fracciones decimales en formatos de hora estándar (AM/PM).</p>
+                    <div class="flex items-center justify-center gap-2"><span class="number-card-before">0.75</span><span>→</span><span class="number-card-after">6:00 PM</span></div>
+                </div>
+                 <div class="bg-white p-6 rounded-xl shadow-lg text-center transform hover:scale-105 transition-transform duration-300">
+                    <div class="text-6xl mb-3">🔢</div>
+                    <h4 class="text-xl font-bold mb-2">Número</h4>
+                    <p class="text-slate-600 mb-4">Controla los decimales y añade separadores de miles para claridad en grandes cantidades.</p>
+                    <div class="flex items-center justify-center gap-2"><span class="number-card-before">9876543</span><span>→</span><span class="number-card-after">9,876,543</span></div>
+                </div>
+                 <div class="bg-white p-6 rounded-xl shadow-lg text-center transform hover:scale-105 transition-transform duration-300">
+                    <div class="text-6xl mb-3">➗</div>
+                    <h4 class="text-xl font-bold mb-2">Fracción</h4>
+                    <p class="text-slate-600 mb-4">Muestra valores decimales como fracciones, útil para medidas y recetas.</p>
+                    <div class="flex items-center justify-center gap-2"><span class="number-card-before">0.5</span><span>→</span><span class="number-card-after">1/2</span></div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="mission-process" class="my-16">
+            <h2 class="text-3xl font-bold text-center mb-10">Tu Ruta hacia la Alquimia</h2>
+            <div class="bg-white rounded-2xl shadow-xl p-8">
+                 <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
+                    <div class="flowchart-step">
+                        <div class="bg-blue-200 text-3xl font-bold rounded-full w-24 h-24 flex items-center justify-center border-4 border-[#3B82F6]">🎬</div>
+                        <h3 class="mt-4 font-bold">1. Aprende</h3>
+                        <p class="text-sm text-slate-500">Mira "El Laboratorio Numérico".</p>
+                    </div>
+                     <div class="flowchart-step">
+                        <div class="bg-blue-200 text-3xl font-bold rounded-full w-24 h-24 flex items-center justify-center border-4 border-[#3B82F6]">📖</div>
+                        <h3 class="mt-4 font-bold">2. Consulta</h3>
+                        <p class="text-sm text-slate-500">Usa "El Libro de Hechizos Numéricos".</p>
+                    </div>
+                     <div class="flowchart-step">
+                        <div class="bg-blue-200 text-3xl font-bold rounded-full w-24 h-24 flex items-center justify-center border-4 border-[#3B82F6]">⚗️</div>
+                        <h3 class="mt-4 font-bold">3. Practica</h3>
+                        <p class="text-sm text-slate-500">Experimenta en "El Cofre de Cifras".</p>
+                    </div>
+                    <div class="flowchart-step">
+                        <div class="bg-blue-200 text-3xl font-bold rounded-full w-24 h-24 flex items-center justify-center border-4 border-[#3B82F6]">🧠</div>
+                        <h3 class="mt-4 font-bold">4. Demuestra</h3>
+                        <p class="text-sm text-slate-500">Supera la "Evaluación del Alquimista".</p>
+                    </div>
+                    <div class="flowchart-step">
+                        <div class="bg-gradient-to-br from-[#3B82F6] to-[#1E3A8A] text-white text-3xl font-bold rounded-full w-24 h-24 flex items-center justify-center border-4 border-blue-300">🏆</div>
+                        <h3 class="mt-4 font-bold">5. Conquista</h3>
+                        <p class="text-sm text-slate-500">¡Gana tu insignia de Alquimista!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <footer class="text-center p-6 bg-slate-800 text-white mt-12">
+        <p>Infografía generada para la Misión 2.2 del curso "El Desafío del Dato Organizado".</p>
+    </footer>
+
+    <script>
+        function wrapText(str) {
+            const words = str.split(' ');
+            const lines = [];
+            let currentLine = words[0] || '';
+            const maxChars = 16;
+
+            for (let i = 1; i < words.length; i++) {
+                if ((currentLine + " " + words[i]).length > maxChars) {
+                    lines.push(currentLine);
+                    currentLine = words[i];
+                } else {
+                    currentLine += " " + words[i];
+                }
+            }
+            lines.push(currentLine);
+            return lines.length > 1 ? lines : str;
+        }
+
+        const xpCtx = document.getElementById('xpChart').getContext('2d');
+        const xpChart = new Chart(xpCtx, {
+            type: 'doughnut',
+            data: {
+                labels: [
+                    'Reto del Alquimista', 
+                    'Quiz de Transformación (4 preguntas)', 
+                    'Bono por Optimización'
+                ].map(wrapText),
+                datasets: [{
+                    label: 'Puntos de Experiencia (XP)',
+                    data: [100, 160, 50],
+                    backgroundColor: [
+                        '#3B82F6',
+                        '#1E3A8A',
+                        '#93C5FD'
+                    ],
+                    borderColor: '#FFFFFF',
+                    borderWidth: 4,
+                    hoverOffset: 10
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: function(tooltipItems) {
+                                const item = tooltipItems[0];
+                                let label = item.chart.data.labels[item.dataIndex];
+                                if (Array.isArray(label)) {
+                                  return label.join(' ');
+                                } else {
+                                  return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

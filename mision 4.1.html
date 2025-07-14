@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Chosen Palette: Energetic & Playful -->
+    <!-- Application Structure Plan: The SPA follows a linear, narrative-driven structure to guide the user through the mission. It begins with a motivational header, then presents the core learning objectives and rewards (using a donut chart for XP). The core knowledge is delivered through a card-based grid ("Guardian's Toolkit"). This is followed by a practical "before-and-after" demonstration of the main challenge. Finally, a flowchart visualizes the step-by-step process for mission completion. This top-down structure (Why -> What -> How) is highly effective for educational content. -->
+    <!-- Visualization & Content Choices: 
+        - Mission Rewards: Goal: Inform/Motivate. Viz: Donut Chart (Chart.js/Canvas) to visually quantify XP rewards, making them more engaging. Interaction: Hover tooltips. Justification: A chart is more compelling than a plain list for breaking down points.
+        - Sorting Methods: Goal: Organize/Inform. Viz: A grid of styled cards (HTML/CSS with Tailwind). Interaction: Hover effects. Justification: Cards are a modular and scannable way to present distinct but related tools. NO SVG/Mermaid used.
+        - The Challenge ("Domando el Caos"): Goal: Compare/Demonstrate. Viz: Side-by-side HTML tables. Justification: This directly visualizes the transformation from chaos to order, proving the value of the skill. NO SVG/Mermaid used.
+        - Mission Process ("Plan de Batalla"): Goal: Organize/Guide. Viz: A flowchart built with structured HTML and CSS pseudo-elements for arrows. Justification: Provides a clear, step-by-step visual path for the user, created without forbidden libraries.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <title>Infografía: Misión 4.1 - El Guardián del Orden</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa;
+            color: #343a40;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 450px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .flowchart-step {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: 100%;
+        }
+        .flowchart-step:not(:last-child)::after {
+            content: '↓';
+            font-size: 2.5rem;
+            color: #F15BB5;
+            margin-top: 1rem;
+        }
+        @media (min-width: 1024px) {
+            .flowchart-step:not(:last-child)::after {
+                content: '→';
+                position: absolute;
+                left: 100%;
+                top: 50%;
+                transform: translate(0, -50%);
+                margin-top: 0;
+            }
+        }
+        .tool-card {
+            background-color: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            border-left: 8px solid;
+            transition: transform 0.3s ease;
+        }
+        .tool-card:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <main class="container mx-auto p-4 md:p-8 max-w-7xl">
+
+        <header class="text-center my-8 md:my-12">
+            <h1 class="text-4xl md:text-6xl font-black tracking-tight"><span class="text-transparent bg-clip-text bg-gradient-to-r from-[#F15BB5] to-[#F7B801]">Misión 4.1</span></h1>
+            <h2 class="text-3xl md:text-5xl font-bold mt-2">El Guardián del Orden</h2>
+            <p class="mt-4 text-lg md:text-xl text-slate-600 max-w-3xl mx-auto">¡Es hora de domar el caos! Aprende a clasificar y organizar tus datos para revelar la información oculta y presentarla con claridad.</p>
+        </header>
+        
+        <section id="objective-rewards" class="my-16 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            <div class="bg-white rounded-2xl shadow-xl p-8 order-2 lg:order-1 border-t-8 border-[#F15BB5]">
+                <h3 class="text-3xl font-bold text-center mb-6">Tu Deber y Recompensa</h3>
+                <div class="flex items-start bg-pink-50 p-4 rounded-lg mb-4">
+                    <span class="text-5xl mr-4">🎯</span>
+                    <div>
+                        <h4 class="font-bold text-[#9b2242]">Objetivo Principal</h4>
+                        <p class="text-slate-600">Domina la ordenación simple, multinivel y personalizada para transformar el caos en una estructura de datos impecable.</p>
+                    </div>
+                </div>
+                 <div class="flex items-start bg-pink-50 p-4 rounded-lg">
+                    <span class="text-5xl mr-4">🏆</span>
+                    <div>
+                        <h4 class="font-bold text-[#9b2242]">Insignia de Logro</h4>
+                        <p class="text-slate-600">Gana la insignia <strong class="text-[#F15BB5]">"Maestro del Orden"</strong> y consigue más de <strong class="text-[#F15BB5]">490+ XP</strong>.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="order-1 lg:order-2">
+                <div class="bg-white rounded-2xl shadow-xl p-8 flex flex-col">
+                    <h3 class="text-xl font-bold text-center mb-4">Puntos de Experiencia (XP) a tu Alcance</h3>
+                    <p class="text-center text-slate-500 mb-4">Completa el rompecabezas y el interrogatorio para ganar.</p>
+                    <div class="chart-container">
+                        <canvas id="xpChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="toolkit" class="my-16">
+             <h2 class="text-3xl font-bold text-center mb-10">El Kit de Herramientas del Guardián</h2>
+             <p class="text-center text-slate-600 mb-8 max-w-3xl mx-auto">Domina estas cuatro técnicas de ordenación y ningún conjunto de datos será un rival para ti.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+                <div class="tool-card" style="border-color: #F15BB5;">
+                    <div class="flex items-center mb-2"><span class="text-4xl mr-3">🔼</span><h4 class="text-xl font-bold">Simple</h4></div>
+                    <p class="text-slate-600">Organiza una columna de la A a la Z o de menor a mayor. Rápido y directo.</p>
+                </div>
+
+                <div class="tool-card" style="border-color: #4ECDC4;">
+                    <div class="flex items-center mb-2"><span class="text-4xl mr-3">📶</span><h4 class="text-xl font-bold">Multinivel</h4></div>
+                    <p class="text-slate-600">Clasifica por un criterio, y luego por otro. Ej: Por Departamento, luego por Apellido.</p>
+                </div>
+                
+                <div class="tool-card" style="border-color: #F7B801;">
+                     <div class="flex items-center mb-2"><span class="text-4xl mr-3">📋</span><h4 class="text-xl font-bold">Personalizada</h4></div>
+                    <p class="text-slate-600">Ordena según tu propia lista. Ej: Bajo, Medio, Alto en lugar de alfabéticamente.</p>
+                </div>
+
+                <div class="tool-card" style="border-color: #FF6B6B;">
+                    <div class="flex items-center mb-2"><span class="text-4xl mr-3">🎨</span><h4 class="text-xl font-bold">Por Color</h4></div>
+                    <p class="text-slate-600">Agrupa filas basándote en el color de la celda o de la fuente. Ideal para estados visuales.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="challenge" class="my-16">
+            <h2 class="text-3xl font-bold text-center mb-10">Desafío: Domando el Caos de Datos</h2>
+            <p class="text-center text-slate-600 mb-8 max-w-3xl mx-auto">Observa la transformación. Un conjunto de datos caótico se convierte en un informe claro y estructurado con solo unas pocas reglas de ordenación.</p>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                 <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h4 class="text-xl font-bold mb-4 text-center">ANTES: El Caos</h4>
+                    <table class="w-full text-sm border-collapse">
+                        <thead><tr class="bg-slate-200 text-left"><th class="p-2 border">Depto.</th><th class="p-2 border">Nombre</th><th class="p-2 border text-right">Ventas</th></tr></thead>
+                        <tbody>
+                            <tr><td class="p-2 border">Ventas</td><td class="p-2 border">Luis</td><td class="p-2 border text-right">18000</td></tr>
+                            <tr><td class="p-2 border">Soporte</td><td class="p-2 border">Carla</td><td class="p-2 border text-right">9500</td></tr>
+                            <tr><td class="p-2 border">Ventas</td><td class="p-2 border">Ana</td><td class="p-2 border text-right">25000</td></tr>
+                            <tr><td class="p-2 border">Soporte</td><td class="p-2 border">Pedro</td><td class="p-2 border text-right">11000</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg border-4 border-dashed border-[#4ECDC4]">
+                    <h4 class="text-xl font-bold mb-4 text-center">DESPUÉS: El Orden</h4>
+                     <p class="text-center text-xs text-slate-500 mb-2">Regla: Ordenar por Depto. (A-Z), luego por Ventas (Mayor a menor).</p>
+                    <table class="w-full text-sm border-collapse">
+                         <thead><tr class="bg-teal-100 text-left"><th class="p-2 border">Depto.</th><th class="p-2 border">Nombre</th><th class="p-2 border text-right">Ventas</th></tr></thead>
+                        <tbody>
+                            <tr><td class="p-2 border">Soporte</td><td class="p-2 border">Pedro</td><td class="p-2 border text-right font-bold text-teal-700">11,000</td></tr>
+                            <tr><td class="p-2 border">Soporte</td><td class="p-2 border">Carla</td><td class="p-2 border text-right font-bold text-teal-700">9,500</td></tr>
+                            <tr><td class="p-2 border">Ventas</td><td class="p-2 border">Ana</td><td class="p-2 border text-right font-bold text-teal-700">25,000</td></tr>
+                            <tr><td class="p-2 border">Ventas</td><td class="p-2 border">Luis</td><td class="p-2 border text-right font-bold text-teal-700">18,000</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section id="mission-process" class="my-16">
+            <h2 class="text-3xl font-bold text-center mb-10">Tu Plan de Batalla</h2>
+            <div class="bg-white rounded-2xl shadow-xl p-8">
+                 <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
+                    <div class="flowchart-step">
+                        <div class="bg-pink-200 text-3xl font-bold rounded-full w-24 h-24 flex items-center justify-center border-4 border-[#F15BB5]">🎬</div>
+                        <h3 class="mt-4 font-bold">1. Aprende</h3>
+                        <p class="text-sm text-slate-500">Mira "El Arte de la Clasificación".</p>
+                    </div>
+                     <div class="flowchart-step">
+                        <div class="bg-yellow-200 text-3xl font-bold rounded-full w-24 h-24 flex items-center justify-center border-4 border-[#F7B801]">🗺️</div>
+                        <h3 class="mt-4 font-bold">2. Consulta</h3>
+                        <p class="text-sm text-slate-500">Usa tu "Brújula de Ordenación".</p>
+                    </div>
+                     <div class="flowchart-step">
+                        <div class="bg-cyan-200 text-3xl font-bold rounded-full w-24 h-24 flex items-center justify-center border-4 border-[#4ECDC4]">🧩</div>
+                        <h3 class="mt-4 font-bold">3. Practica</h3>
+                        <p class="text-sm text-slate-500">Resuelve "El Rompecabezas Ordenado".</p>
+                    </div>
+                    <div class="flowchart-step">
+                        <div class="bg-red-200 text-3xl font-bold rounded-full w-24 h-24 flex items-center justify-center border-4 border-[#FF6B6B]">🧠</div>
+                        <h3 class="mt-4 font-bold">4. Demuestra</h3>
+                        <p class="text-sm text-slate-500">Pasa el "Interrogatorio de Criterios".</p>
+                    </div>
+                    <div class="flowchart-step">
+                        <div class="bg-gradient-to-br from-[#4ECDC4] to-[#45B7D1] text-white text-3xl font-bold rounded-full w-24 h-24 flex items-center justify-center border-4 border-cyan-300">🏆</div>
+                        <h3 class="mt-4 font-bold">5. Conquista</h3>
+                        <p class="text-sm text-slate-500">¡Recibe tu insignia de Maestro!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <footer class="text-center p-6 bg-slate-800 text-white mt-12">
+        <p>Infografía generada para la Misión 4.1 del curso "El Desafío del Dato Organizado".</p>
+    </footer>
+
+    <script>
+        function wrapText(str) {
+            const words = str.split(' ');
+            const lines = [];
+            let currentLine = words[0] || '';
+            const maxChars = 16;
+
+            for (let i = 1; i < words.length; i++) {
+                if ((currentLine + " " + words[i]).length > maxChars) {
+                    lines.push(currentLine);
+                    currentLine = words[i];
+                } else {
+                    currentLine += " " + words[i];
+                }
+            }
+            lines.push(currentLine);
+            return lines.length > 1 ? lines : str;
+        }
+
+        const xpCtx = document.getElementById('xpChart').getContext('2d');
+        const xpChart = new Chart(xpCtx, {
+            type: 'doughnut',
+            data: {
+                labels: [
+                    'El Rompecabezas Ordenado', 
+                    'Interrogatorio de Criterios (4 preguntas)', 
+                    'Bono por Eficiencia'
+                ].map(wrapText),
+                datasets: [{
+                    label: 'Puntos de Experiencia (XP)',
+                    data: [160, 280, 50],
+                    backgroundColor: [
+                        '#F15BB5',
+                        '#4ECDC4',
+                        '#F7B801',
+                    ],
+                    borderColor: '#FFFFFF',
+                    borderWidth: 4,
+                    hoverOffset: 10
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: function(tooltipItems) {
+                                const item = tooltipItems[0];
+                                let label = item.chart.data.labels[item.dataIndex];
+                                if (Array.isArray(label)) {
+                                  return label.join(' ');
+                                } else {
+                                  return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

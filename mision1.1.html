@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía: Misión 1.1 - El Primer Contacto</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .flowchart-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+        .flowchart-step:not(:last-child)::after {
+            content: '→';
+            font-size: 2.5rem;
+            color: #FC913A;
+            position: absolute;
+            right: -40px; 
+            top: 25%;
+            transform: translateY(-50%);
+        }
+        @media (max-width: 1023px) {
+            .flowchart-step:not(:last-child)::after {
+                content: '↓';
+                right: 50%;
+                top: auto;
+                bottom: -50px;
+                transform: translateX(50%);
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <main class="container mx-auto p-4 md:p-8 max-w-7xl">
+
+        <header class="text-center my-8 md:my-12">
+            <h1 class="text-4xl md:text-6xl font-black text-gray-800 tracking-tight">Misión 1.1: <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#FF4E50] to-[#FC913A]">El Primer Contacto</span></h1>
+            <p class="mt-4 text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">¡Bienvenido, aspirante a Maestro de Datos! Tu primera misión es crucial: explora y comprende el Cuartel General de Datos, también conocido como Excel. ¿Estás listo?</p>
+        </header>
+
+        <section id="objective" class="my-12">
+             <div class="bg-white rounded-2xl shadow-lg p-8 md:p-12 text-center transform hover:scale-105 transition-transform duration-300">
+                <h2 class="text-2xl font-bold text-gray-500 mb-2">OBJETIVO PRINCIPAL</h2>
+                <div class="flex justify-center items-center">
+                     <span class="text-7xl md:text-9xl font-black text-[#FF4E50]">8</span>
+                     <p class="text-2xl md:text-4xl font-bold ml-4 text-left">Componentes<br>Clave a Identificar</p>
+                </div>
+                <p class="mt-4 text-gray-600">Debes localizar y nombrar los elementos fundamentales de la interfaz para desbloquear tu primera Hoja de Trabajo.</p>
+            </div>
+        </section>
+
+        <section id="mission-flow" class="my-16">
+            <h2 class="text-3xl font-bold text-center mb-10">El Flujo de la Misión</h2>
+            <div class="bg-white rounded-2xl shadow-lg p-8">
+                 <div class="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-8 items-center justify-items-center">
+                    <div class="flowchart-step">
+                        <div class="bg-[#E1F5C4] text-3xl font-bold rounded-full w-20 h-20 flex items-center justify-center border-4 border-[#F9D423]">1</div>
+                        <h3 class="mt-4 font-bold">Introducción</h3>
+                        <p class="text-sm text-gray-500">Recibe tu misión y objetivos.</p>
+                    </div>
+                    <div class="flowchart-step">
+                        <div class="bg-[#E1F5C4] text-3xl font-bold rounded-full w-20 h-20 flex items-center justify-center border-4 border-[#F9D423]">2</div>
+                        <h3 class="mt-4 font-bold">Materiales</h3>
+                        <p class="text-sm text-gray-500">Consume los videos y guías.</p>
+                    </div>
+                    <div class="flowchart-step">
+                        <div class="bg-[#E1F5C4] text-3xl font-bold rounded-full w-20 h-20 flex items-center justify-center border-4 border-[#F9D423]">3</div>
+                        <h3 class="mt-4 font-bold">Exploración</h3>
+                        <p class="text-sm text-gray-500">Navega activamente en Excel.</p>
+                    </div>
+                    <div class="flowchart-step">
+                        <div class="bg-[#E1F5C4] text-3xl font-bold rounded-full w-20 h-20 flex items-center justify-center border-4 border-[#F9D423]">4</div>
+                        <h3 class="mt-4 font-bold">Evaluación</h3>
+                        <p class="text-sm text-gray-500">Demuestra lo aprendido en un quiz.</p>
+                    </div>
+                    <div class="flowchart-step">
+                        <div class="bg-[#FF4E50] text-white text-3xl font-bold rounded-full w-20 h-20 flex items-center justify-center border-4 border-[#FC913A]">🏆</div>
+                        <h3 class="mt-4 font-bold">Recompensa</h3>
+                        <p class="text-sm text-gray-500">¡Obtén tu insignia y XP!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="materials-rewards" class="my-16 grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="bg-white rounded-2xl shadow-lg p-8">
+                <h2 class="text-3xl font-bold text-center mb-6">Tu Arsenal de Aprendizaje</h2>
+                <p class="text-center text-gray-600 mb-6">Para completar tu misión, tendrás acceso a un completo set de herramientas de entrenamiento. Utilízalas sabiamente para asegurar el éxito.</p>
+                <ul class="space-y-4">
+                    <li class="flex items-center bg-gray-50 p-4 rounded-lg"><span class="text-2xl mr-4">🎬</span><div><h4 class="font-bold">Video Tutorial: "La Visita Guiada"</h4><p class="text-sm text-gray-500">Un recorrido visual de 3-5 minutos por la interfaz.</p></div></li>
+                    <li class="flex items-center bg-gray-50 p-4 rounded-lg"><span class="text-2xl mr-4">🗺️</span><div><h4 class="font-bold">Guía Visual: "El Mapa del Cuartel General"</h4><p class="text-sm text-gray-500">Una infografía con todos los elementos etiquetados.</p></div></li>
+                    <li class="flex items-center bg-gray-50 p-4 rounded-lg"><span class="text-2xl mr-4">⚙️</span><div><h4 class="font-bold">Archivo de Práctica: "El Campo de Entrenamiento"</h4><p class="text-sm text-gray-500">Un archivo .xlsx para que explores por tu cuenta.</p></div></li>
+                    <li class="flex items-center bg-gray-50 p-4 rounded-lg"><span class="text-2xl mr-4">❓</span><div><h4 class="font-bold">Quiz de Reconocimiento: "La Prueba del Explorador"</h4><p class="text-sm text-gray-500">Un cuestionario para validar tus conocimientos.</p></div></li>
+                     <li class="flex items-center bg-gray-50 p-4 rounded-lg"><span class="text-2xl mr-4">📋</span><div><h4 class="font-bold">Checklist: "Tu Bitácora de Descubrimientos"</h4><p class="text-sm text-gray-500">Una lista para marcar los elementos que encuentres.</p></div></li>
+                </ul>
+            </div>
+            
+            <div class="bg-white rounded-2xl shadow-lg p-8 flex flex-col">
+                <h2 class="text-3xl font-bold text-center mb-6">¡Recompensas por tu Esfuerzo!</h2>
+                <p class="text-center text-gray-600 mb-6">El éxito en tu misión no pasará desapercibido. Acumula Puntos de Experiencia (XP) y obtén tu primera insignia de honor.</p>
+                <div class="flex-grow flex flex-col justify-center items-center">
+                    <div class="chart-container">
+                        <canvas id="xpChart"></canvas>
+                    </div>
+                    <div class="mt-6 flex flex-col items-center">
+                        <div class="relative bg-gradient-to-br from-[#F9D423] to-[#FC913A] text-white w-40 h-48 rounded-t-full shadow-lg p-4 flex flex-col items-center justify-center">
+                           <div class="text-5xl">🛡️</div>
+                           <h4 class="font-bold text-center mt-2">Explorador Novato de Excel</h4>
+                        </div>
+                         <p class="mt-4 text-gray-600 font-semibold">¡Tu primera insignia!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="ui-elements" class="my-16">
+            <h2 class="text-3xl font-bold text-center mb-10">Puntos Clave a Descubrir en la Interfaz</h2>
+            <p class="text-center text-gray-600 max-w-3xl mx-auto mb-10">Estos son los 12 elementos fundamentales que debes ser capaz de identificar. Son la base para toda tu futura actividad en el Cuartel General de Datos.</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <div class="bg-white p-5 rounded-xl shadow-md hover:shadow-xl transition-shadow">
+                    <h4 class="font-bold">1. Cinta de Opciones</h4>
+                    <p class="text-sm text-gray-500">La barra principal con todas las herramientas y comandos.</p>
+                </div>
+                <div class="bg-white p-5 rounded-xl shadow-md hover:shadow-xl transition-shadow">
+                    <h4 class="font-bold">2. Barra de Fórmulas</h4>
+                    <p class="text-sm text-gray-500">Donde se editan los datos y fórmulas de una celda.</p>
+                </div>
+                 <div class="bg-white p-5 rounded-xl shadow-md hover:shadow-xl transition-shadow">
+                    <h4 class="font-bold">3. Cuadro de Nombres</h4>
+                    <p class="text-sm text-gray-500">Muestra la dirección de la celda activa.</p>
+                </div>
+                 <div class="bg-white p-5 rounded-xl shadow-md hover:shadow-xl transition-shadow">
+                    <h4 class="font-bold">4. Encabezados de Columna</h4>
+                    <p class="text-sm text-gray-500">Las letras (A, B, C...) que identifican cada columna.</p>
+                </div>
+                <div class="bg-white p-5 rounded-xl shadow-md hover:shadow-xl transition-shadow">
+                    <h4 class="font-bold">5. Encabezados de Fila</h4>
+                    <p class="text-sm text-gray-500">Los números (1, 2, 3...) que identifican cada fila.</p>
+                </div>
+                 <div class="bg-white p-5 rounded-xl shadow-md hover:shadow-xl transition-shadow">
+                    <h4 class="font-bold">6. Celdas</h4>
+                    <p class="text-sm text-gray-500">La intersección de una fila y una columna.</p>
+                </div>
+                <div class="bg-white p-5 rounded-xl shadow-md hover:shadow-xl transition-shadow">
+                    <h4 class="font-bold">7. Pestañas de Hojas</h4>
+                    <p class="text-sm text-gray-500">Permiten navegar entre las diferentes hojas del libro.</p>
+                </div>
+                 <div class="bg-white p-5 rounded-xl shadow-md hover:shadow-xl transition-shadow">
+                    <h4 class="font-bold">8. Barra de Estado</h4>
+                    <p class="text-sm text-gray-500">Muestra información útil y accesos a vistas y zoom.</p>
+                </div>
+                 <div class="bg-white p-5 rounded-xl shadow-md hover:shadow-xl transition-shadow">
+                    <h4 class="font-bold">9. Botones de Vista</h4>
+                    <p class="text-sm text-gray-500">Cambian entre vista Normal, Diseño de Página, etc.</p>
+                </div>
+                <div class="bg-white p-5 rounded-xl shadow-md hover:shadow-xl transition-shadow">
+                    <h4 class="font-bold">10. Zoom</h4>
+                    <p class="text-sm text-gray-500">Acerca o aleja la vista de la hoja de cálculo.</p>
+                </div>
+                <div class="bg-white p-5 rounded-xl shadow-md hover:shadow-xl transition-shadow">
+                    <h4 class="font-bold">11. Barra de Acceso Rápido</h4>
+                    <p class="text-sm text-gray-500">Atajos a funciones comunes como Guardar y Deshacer.</p>
+                </div>
+                <div class="bg-white p-5 rounded-xl shadow-md hover:shadow-xl transition-shadow">
+                    <h4 class="font-bold">12. Botón de Archivo</h4>
+                    <p class="text-sm text-gray-500">Abre la vista "Backstage" para opciones de archivo.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <footer class="text-center p-6 bg-gray-800 text-white mt-12">
+        <p>Infografía generada para el curso "El Desafío del Dato Organizado".</p>
+    </footer>
+
+    <script>
+        function wrapText(str) {
+            const words = str.split(' ');
+            const lines = [];
+            let currentLine = words[0];
+            const maxChars = 16;
+
+            for (let i = 1; i < words.length; i++) {
+                if ((currentLine + " " + words[i]).length > maxChars) {
+                    lines.push(currentLine);
+                    currentLine = words[i];
+                } else {
+                    currentLine += " " + words[i];
+                }
+            }
+            lines.push(currentLine);
+            return lines.length > 1 ? lines : str;
+        }
+
+        const xpCtx = document.getElementById('xpChart').getContext('2d');
+        const xpChart = new Chart(xpCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Recorrido Guiado', 'Quiz de Reconocimiento'].map(wrapText),
+                datasets: [{
+                    label: 'Puntos de Experiencia (XP)',
+                    data: [50, 200],
+                    backgroundColor: [
+                        '#F9D423',
+                        '#FF4E50'
+                    ],
+                    borderColor: [
+                        '#FFFFFF',
+                        '#FFFFFF'
+                    ],
+                    borderWidth: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Distribución de Puntos de Experiencia (XP)',
+                        font: {
+                            size: 16
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: function(tooltipItems) {
+                                const item = tooltipItems[0];
+                                let label = item.chart.data.labels[item.dataIndex];
+                                if (Array.isArray(label)) {
+                                  return label.join(' ');
+                                } else {
+                                  return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

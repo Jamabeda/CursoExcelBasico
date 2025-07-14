@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía: Misión 3.2 - Las Armas Secretas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F4F7F5;
+            color: #1A265F;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 450px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .flowchart-step {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: 100%;
+        }
+        .flowchart-step:not(:last-child)::after {
+            content: '↓';
+            font-size: 2.5rem;
+            color: #00A676;
+            margin-top: 1rem;
+        }
+        @media (min-width: 1024px) {
+            .flowchart-step:not(:last-child)::after {
+                content: '→';
+                position: absolute;
+                left: 100%;
+                top: 50%;
+                transform: translate(0, -50%);
+                margin-top: 0;
+            }
+        }
+        .function-card {
+            background-color: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            border-left: 8px solid;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .function-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <main class="container mx-auto p-4 md:p-8 max-w-7xl">
+
+        <header class="text-center my-8 md:my-12">
+            <h1 class="text-4xl md:text-6xl font-black tracking-tight"><span class="text-transparent bg-clip-text bg-gradient-to-r from-[#1A265F] to-[#00A676]">Misión 3.2</span></h1>
+            <h2 class="text-3xl md:text-5xl font-bold mt-2">Las Armas Secretas</h2>
+            <p class="mt-4 text-lg md:text-xl text-slate-600 max-w-3xl mx-auto">Deja atrás los cálculos manuales. Es hora de desbloquear el arsenal de funciones de Excel para una eficiencia letal.</p>
+        </header>
+        
+        <section id="objective-rewards" class="my-16 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            <div class="bg-white rounded-2xl shadow-xl p-8 order-2 lg:order-1 border-t-8 border-[#00A676]">
+                <h3 class="text-3xl font-bold text-center mb-6">Tu Arsenal y Recompensas</h3>
+                <div class="flex items-start bg-emerald-50 p-4 rounded-lg mb-4">
+                    <span class="text-5xl mr-4">🎯</span>
+                    <div>
+                        <h4 class="font-bold text-[#1A265F]">Objetivo Principal</h4>
+                        <p class="text-slate-600">Domina el "Quinteto Invencible" de funciones (<strong class="text-[#00A676]">SUMA, PROMEDIO, CONTAR, MAX, MIN</strong>) y la herramienta <strong class="text-[#00A676]">Autosuma</strong>.</p>
+                    </div>
+                </div>
+                 <div class="flex items-start bg-emerald-50 p-4 rounded-lg">
+                    <span class="text-5xl mr-4">🏆</span>
+                    <div>
+                        <h4 class="font-bold text-[#1A265F]">Insignia de Logro</h4>
+                        <p class="text-slate-600">Gana la insignia <strong class="text-[#00A676]">"Maestro de Funciones"</strong> y acumula un arsenal de <strong class="text-[#00A676]">400+ XP</strong>.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="order-1 lg:order-2">
+                <div class="bg-white rounded-2xl shadow-xl p-8 flex flex-col">
+                    <h3 class="text-xl font-bold text-center mb-4">Puntos de Experiencia (XP) a Conquistar</h3>
+                    <p class="text-center text-slate-500 mb-4">Completa el desafío y la prueba para maximizar tu ganancia.</p>
+                    <div class="chart-container">
+                        <canvas id="xpChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="arsenal" class="my-16">
+             <h2 class="text-3xl font-bold text-center mb-10">El Quinteto Invencible: Tu Arsenal de Funciones</h2>
+             <p class="text-center text-slate-600 mb-8 max-w-3xl mx-auto">Estas son las 5 funciones que resolverán el 80% de tus problemas. Apréndelas, domínalas y sé imparable.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <div class="function-card" style="border-color: #00A676;">
+                    <div class="flex items-center mb-2"><span class="text-4xl mr-3">➕</span><h4 class="text-xl font-bold">SUMA</h4></div>
+                    <p class="text-slate-600 mb-3">Suma todos los números en un rango de celdas.</p>
+                    <code class="bg-slate-100 p-2 rounded-md font-mono text-sm block text-center">=SUMA(rango)</code>
+                </div>
+
+                <div class="function-card" style="border-color: #1A265F;">
+                    <div class="flex items-center mb-2"><span class="text-4xl mr-3">➗</span><h4 class="text-xl font-bold">PROMEDIO</h4></div>
+                    <p class="text-slate-600 mb-3">Calcula el promedio aritmético de un rango de celdas.</p>
+                    <code class="bg-slate-100 p-2 rounded-md font-mono text-sm block text-center">=PROMEDIO(rango)</code>
+                </div>
+
+                <div class="function-card" style="border-color: #F2A104;">
+                     <div class="flex items-center mb-2"><span class="text-4xl mr-3">🔢</span><h4 class="text-xl font-bold">CONTAR</h4></div>
+                    <p class="text-slate-600 mb-3">Cuenta cuántas celdas contienen números en un rango.</p>
+                    <code class="bg-slate-100 p-2 rounded-md font-mono text-sm block text-center">=CONTAR(rango)</code>
+                </div>
+
+                <div class="function-card" style="border-color: #4994d1;">
+                    <div class="flex items-center mb-2"><span class="text-4xl mr-3">🔼</span><h4 class="text-xl font-bold">MAX</h4></div>
+                    <p class="text-slate-600 mb-3">Encuentra el valor más alto dentro de un rango.</p>
+                    <code class="bg-slate-100 p-2 rounded-md font-mono text-sm block text-center">=MAX(rango)</code>
+                </div>
+
+                <div class="function-card" style="border-color: #6d6e71;">
+                    <div class="flex items-center mb-2"><span class="text-4xl mr-3">🔽</span><h4 class="text-xl font-bold">MIN</h4></div>
+                    <p class="text-slate-600 mb-3">Encuentra el valor más bajo dentro de un rango.</p>
+                    <code class="bg-slate-100 p-2 rounded-md font-mono text-sm block text-center">=MIN(rango)</code>
+                </div>
+                
+                 <div class="function-card bg-gradient-to-br from-[#1A265F] to-[#00A676] text-white" style="border-color: #F2A104;">
+                    <div class="flex items-center mb-2"><span class="text-4xl mr-3">⚡</span><h4 class="text-xl font-bold">AUTOSUMA</h4></div>
+                    <p class="mb-3">Tu atajo definitivo. Selecciona una celda debajo de una columna y presiona este botón para sumar todo al instante.</p>
+                    <div class="bg-white/20 p-2 rounded-md font-mono text-sm block text-center">Pestaña Inicio → Σ Autosuma</div>
+                </div>
+
+            </div>
+        </section>
+        
+        <section id="challenge" class="my-16">
+            <h2 class="text-3xl font-bold text-center mb-10">Desafío: El Resumen Ejecutivo</h2>
+            <p class="text-center text-slate-600 mb-8 max-w-3xl mx-auto">Te entregan los datos de ventas de la semana. Tu misión: usar el "Quinteto Invencible" para generar un resumen estadístico completo.</p>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h4 class="text-xl font-bold mb-4 text-center">Datos de Ventas Semanales</h4>
+                    <table class="w-full text-sm border-collapse">
+                        <thead><tr class="bg-slate-200 text-left"><th class="p-2 border">Día</th><th class="p-2 border text-right">Ventas ($)</th></tr></thead>
+                        <tbody>
+                            <tr><td class="p-2 border">Lunes</td><td class="p-2 border text-right">1,250</td></tr>
+                            <tr><td class="p-2 border">Martes</td><td class="p-2 border text-right">1,800</td></tr>
+                            <tr><td class="p-2 border">Miércoles</td><td class="p-2 border text-right">1,100</td></tr>
+                            <tr><td class="p-2 border">Jueves</td><td class="p-2 border text-right">2,500</td></tr>
+                            <tr><td class="p-2 border">Viernes</td><td class="p-2 border text-right">2,100</td></tr>
+                             <tr><td class="p-2 border">Sábado</td><td class="p-2 border text-right">3,500</td></tr>
+                              <tr><td class="p-2 border">Domingo</td><td class="p-2 border text-right">3,200</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg border-4 border-dashed border-[#00A676]">
+                    <h4 class="text-xl font-bold mb-4 text-center">Resumen Gerencial Generado</h4>
+                    <table class="w-full text-sm border-collapse">
+                         <thead><tr class="bg-emerald-100 text-left"><th class="p-2 border">Métrica</th><th class="p-2 border text-right">Resultado</th></tr></thead>
+                        <tbody>
+                            <tr><td class="p-2 border font-semibold">Total de Ventas</td><td class="p-2 border text-right font-mono text-emerald-700">$15,450</td></tr>
+                            <tr><td class="p-2 border font-semibold">Venta Promedio Diaria</td><td class="p-2 border text-right font-mono text-emerald-700">$2,207</td></tr>
+                             <tr><td class="p-2 border font-semibold">Días con Ventas</td><td class="p-2 border text-right font-mono text-emerald-700">7</td></tr>
+                            <tr><td class="p-2 border font-semibold">Mejor Día de Ventas</td><td class="p-2 border text-right font-mono text-emerald-700">$3,500</td></tr>
+                            <tr><td class="p-2 border font-semibold">Peor Día de Ventas</td><td class="p-2 border text-right font-mono text-emerald-700">$1,100</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section id="mission-process" class="my-16">
+            <h2 class="text-3xl font-bold text-center mb-10">Tu Plan de Dominio Funcional</h2>
+            <div class="bg-white rounded-2xl shadow-xl p-8">
+                 <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
+                    <div class="flowchart-step">
+                        <div class="bg-emerald-200 text-3xl font-bold rounded-full w-24 h-24 flex items-center justify-center border-4 border-[#00A676]">🎬</div>
+                        <h3 class="mt-4 font-bold">1. Aprende</h3>
+                        <p class="text-sm text-slate-500">Mira "El Manual de las Funciones".</p>
+                    </div>
+                     <div class="flowchart-step">
+                        <div class="bg-emerald-200 text-3xl font-bold rounded-full w-24 h-24 flex items-center justify-center border-4 border-[#00A676]">🗺️</div>
+                        <h3 class="mt-4 font-bold">2. Consulta</h3>
+                        <p class="text-sm text-slate-500">Usa tu "Arsenal de Funciones".</p>
+                    </div>
+                     <div class="flowchart-step">
+                        <div class="bg-emerald-200 text-3xl font-bold rounded-full w-24 h-24 flex items-center justify-center border-4 border-[#00A676]">🎯</div>
+                        <h3 class="mt-4 font-bold">3. Practica</h3>
+                        <p class="text-sm text-slate-500">Supera el "Desafío del Quinteto".</p>
+                    </div>
+                    <div class="flowchart-step">
+                        <div class="bg-emerald-200 text-3xl font-bold rounded-full w-24 h-24 flex items-center justify-center border-4 border-[#00A676]">🧠</div>
+                        <h3 class="mt-4 font-bold">4. Demuestra</h3>
+                        <p class="text-sm text-slate-500">Pasa "La Prueba del Arsenal".</p>
+                    </div>
+                    <div class="flowchart-step">
+                        <div class="bg-gradient-to-br from-[#00A676] to-[#1A265F] text-white text-3xl font-bold rounded-full w-24 h-24 flex items-center justify-center border-4 border-emerald-300">🏆</div>
+                        <h3 class="mt-4 font-bold">5. Conquista</h3>
+                        <p class="text-sm text-slate-500">¡Gana tu insignia de Maestro!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <footer class="text-center p-6 bg-slate-800 text-white mt-12">
+        <p>Infografía generada para la Misión 3.2 del curso "El Desafío del Dato Organizado".</p>
+    </footer>
+
+    <script>
+        function wrapText(str) {
+            const words = str.split(' ');
+            const lines = [];
+            let currentLine = words[0] || '';
+            const maxChars = 16;
+
+            for (let i = 1; i < words.length; i++) {
+                if ((currentLine + " " + words[i]).length > maxChars) {
+                    lines.push(currentLine);
+                    currentLine = words[i];
+                } else {
+                    currentLine += " " + words[i];
+                }
+            }
+            lines.push(currentLine);
+            return lines.length > 1 ? lines : str;
+        }
+
+        const xpCtx = document.getElementById('xpChart').getContext('2d');
+        const xpChart = new Chart(xpCtx, {
+            type: 'pie',
+            data: {
+                labels: [
+                    'Desafío del Quinteto Invencible', 
+                    'Prueba del Arsenal (5 preguntas)', 
+                    'Bono por Eficiencia'
+                ].map(wrapText),
+                datasets: [{
+                    label: 'Puntos de Experiencia (XP)',
+                    data: [130, 275, 50],
+                    backgroundColor: [
+                        '#00A676',
+                        '#1A265F',
+                        '#F2A104'
+                    ],
+                    borderColor: '#FFFFFF',
+                    borderWidth: 4,
+                    hoverOffset: 10
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: function(tooltipItems) {
+                                const item = tooltipItems[0];
+                                let label = item.chart.data.labels[item.dataIndex];
+                                if (Array.isArray(label)) {
+                                  return label.join(' ');
+                                } else {
+                                  return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

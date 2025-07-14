@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Chosen Palette: Energetic & Playful -->
+    <!-- Application Structure Plan: The SPA is structured as a linear narrative to guide the user through the mission. It begins with a motivational header, followed by a section detailing the objectives and rewards (visualized with a Chart.js donut chart). The core concepts—the conditional formatting tools—are presented in a digestible card grid. A practical "before-and-after" comparison visually demonstrates the skill's value. The application concludes with a step-by-step flowchart of the mission process. This logical progression from "why" to "what" and "how" is ideal for an educational module. -->
+    <!-- Visualization & Content Choices: 
+        - Mission Rewards (XP): Goal: Inform/Motivate. Viz: Donut Chart (Chart.js/Canvas) to visually break down XP points. Interaction: Hover tooltips for details. Justification: A chart is more engaging for quantitative data than a simple list.
+        - Formatting Tools (Paleta de Formatos): Goal: Organize/Inform. Viz: A responsive grid of styled cards (HTML/CSS with Tailwind), each with a Unicode icon. Interaction: Hover effects. Justification: Cards are a scannable, modern way to present distinct tools. NO SVG/Mermaid used.
+        - The Challenge (El Lienzo Interactivo): Goal: Compare/Demonstrate. Viz: Side-by-side HTML tables. Justification: This directly visualizes the transformation from raw data to insightful, color-coded information, proving the skill's power. NO SVG/Mermaid used.
+        - Mission Process: Goal: Organize/Guide. Viz: A flowchart built with structured HTML (flexbox) and CSS pseudo-elements for arrows, avoiding forbidden libraries. Justification: A flowchart is the most intuitive way to show a step-by-step process.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <title>Infografía: Misión 4.3 - La Pintura del Dato</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa;
+            color: #343a40;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 450px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .flowchart-step {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: 100%;
+        }
+        .flowchart-step:not(:last-child)::after {
+            content: '↓';
+            font-size: 2.5rem;
+            color: #F15BB5;
+            margin-top: 1rem;
+        }
+        @media (min-width: 1024px) {
+            .flowchart-step:not(:last-child)::after {
+                content: '→';
+                position: absolute;
+                left: 100%;
+                top: 50%;
+                transform: translate(0, -50%);
+                margin-top: 0;
+            }
+        }
+        .tool-card {
+            background-color: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            border-left: 8px solid;
+            transition: transform 0.3s ease;
+        }
+        .tool-card:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <main class="container mx-auto p-4 md:p-8 max-w-7xl">
+
+        <header class="text-center my-8 md:my-12">
+            <h1 class="text-4xl md:text-6xl font-black tracking-tight"><span class="text-transparent bg-clip-text bg-gradient-to-r from-[#F15BB5] to-[#F7B801]">Misión 4.3</span></h1>
+            <h2 class="text-3xl md:text-5xl font-bold mt-2">La Pintura del Dato</h2>
+            <p class="mt-4 text-lg md:text-xl text-slate-600 max-w-3xl mx-auto">¡Prepara tu pincel! Aprende a usar el formato condicional para que tus datos cobren vida y te cuenten su historia con colores.</p>
+        </header>
+        
+        <section id="objective-rewards" class="my-16 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            <div class="bg-white rounded-2xl shadow-xl p-8 order-2 lg:order-1 border-t-8 border-[#F15BB5]">
+                <h3 class="text-3xl font-bold text-center mb-6">Tu Lienzo y Recompensa</h3>
+                <div class="flex items-start bg-pink-50 p-4 rounded-lg mb-4">
+                    <span class="text-5xl mr-4">🎯</span>
+                    <div>
+                        <h4 class="font-bold text-[#9b2242]">Objetivo Principal</h4>
+                        <p class="text-slate-600">Aplica <strong class="text-[#F15BB5]">4+ tipos de formato condicional</strong> para resaltar patrones, tendencias y anomalías de forma visual.</p>
+                    </div>
+                </div>
+                 <div class="flex items-start bg-pink-50 p-4 rounded-lg">
+                    <span class="text-5xl mr-4">🏆</span>
+                    <div>
+                        <h4 class="font-bold text-[#9b2242]">Insignia de Logro</h4>
+                        <p class="text-slate-600">Gana la insignia <strong class="text-[#F15BB5]">"Maestro del Color"</strong> y consigue más de <strong class="text-[#F15BB5]">580+ XP</strong>.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="order-1 lg:order-2">
+                <div class="bg-white rounded-2xl shadow-xl p-8 flex flex-col">
+                    <h3 class="text-xl font-bold text-center mb-4">Puntos de Experiencia (XP) en Juego</h3>
+                    <p class="text-center text-slate-500 mb-4">Completa el desafío y el interrogatorio para obtener tu recompensa.</p>
+                    <div class="chart-container">
+                        <canvas id="xpChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="toolkit" class="my-16">
+             <h2 class="text-3xl font-bold text-center mb-10">Tu Paleta de Formatos</h2>
+             <p class="text-center text-slate-600 mb-8 max-w-3xl mx-auto">Estas son tus herramientas de artista. Combínalas para crear visualizaciones de datos impactantes y claras.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+                <div class="tool-card" style="border-color: #F15BB5;">
+                    <div class="flex items-center mb-2"><span class="text-4xl mr-3">🎨</span><h4 class="text-xl font-bold">Reglas de Resaltado</h4></div>
+                    <p class="text-slate-600">Pinta celdas que cumplen una condición. Ideal para destacar valores altos, bajos o duplicados.</p>
+                </div>
+
+                <div class="tool-card" style="border-color: #4ECDC4;">
+                    <div class="flex items-center mb-2"><span class="text-4xl mr-3">📊</span><h4 class="text-xl font-bold">Barras de Datos</h4></div>
+                    <p class="text-slate-600">Añade una barra de progreso dentro de la celda para comparar magnitudes visualmente.</p>
+                </div>
+                
+                <div class="tool-card" style="border-color: #F7B801;">
+                     <div class="flex items-center mb-2"><span class="text-4xl mr-3">🌡️</span><h4 class="text-xl font-bold">Escalas de Color</h4></div>
+                    <p class="text-slate-600">Aplica un degradado de color a un rango, mostrando la distribución de valores como un mapa de calor.</p>
+                </div>
+
+                <div class="tool-card" style="border-color: #FF6B6B;">
+                    <div class="flex items-center mb-2"><span class="text-4xl mr-3">🚦</span><h4 class="text-xl font-bold">Conjuntos de Iconos</h4></div>
+                    <p class="text-slate-600">Usa indicadores visuales (flechas, semáforos, estrellas) para categorizar el rendimiento.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="challenge" class="my-16">
+            <h2 class="text-3xl font-bold text-center mb-10">Desafío: El Lienzo Interactivo</h2>
+            <p class="text-center text-slate-600 mb-8 max-w-3xl mx-auto">Recibes un reporte de ventas sin vida. Tu misión: aplicar tu paleta de formatos para que el reporte cuente su historia por sí solo.</p>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                 <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h4 class="text-xl font-bold mb-4 text-center">ANTES: Datos sin Vida</h4>
+                    <table class="w-full text-sm border-collapse">
+                        <thead><tr class="bg-slate-200 text-left"><th class="p-2 border">Producto</th><th class="p-2 border text-right">Ventas ($)</th><th class="p-2 border text-right">Tendencia</th></tr></thead>
+                        <tbody>
+                            <tr><td class="p-2 border">Alfa</td><td class="p-2 border text-right">8500</td><td class="p-2 border text-right">1</td></tr>
+                            <tr><td class="p-2 border">Beta</td><td class="p-2 border text-right">12500</td><td class="p-2 border text-right">1</td></tr>
+                            <tr><td class="p-2 border">Gamma</td><td class="p-2 border text-right">4200</td><td class="p-2 border text-right">-1</td></tr>
+                            <tr><td class="p-2 border">Delta</td><td class="p-2 border text-right">9800</td><td class="p-2 border text-right">0</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg border-4 border-dashed border-[#4ECDC4]">
+                    <h4 class="text-xl font-bold mb-4 text-center">DESPUÉS: La Obra de Arte</h4>
+                     <p class="text-center text-xs text-slate-500 mb-2">Reglas: Resaltar ventas > 10K, barras de datos, iconos de tendencia.</p>
+                    <table class="w-full text-sm border-collapse">
+                         <thead><tr class="bg-teal-100 text-left"><th class="p-2 border">Producto</th><th class="p-2 border text-right">Ventas ($)</th><th class="p-2 border text-center">Tendencia</th></tr></thead>
+                        <tbody>
+                            <tr><td class="p-2 border">Alfa</td><td class="p-2 border text-right relative"><div class="absolute left-0 top-0 h-full bg-teal-200" style="width: 68%;"></div><span class="relative">8,500</span></td><td class="p-2 border text-center text-green-600">▲</td></tr>
+                            <tr class="bg-green-100"><td class="p-2 border font-bold">Beta</td><td class="p-2 border text-right relative font-bold"><div class="absolute left-0 top-0 h-full bg-teal-200" style="width: 100%;"></div><span class="relative">12,500</span></td><td class="p-2 border text-center text-green-600">▲</td></tr>
+                            <tr><td class="p-2 border">Gamma</td><td class="p-2 border text-right relative"><div class="absolute left-0 top-0 h-full bg-teal-200" style="width: 33%;"></div><span class="relative">4,200</span></td><td class="p-2 border text-center text-red-600">▼</td></tr>
+                             <tr><td class="p-2 border">Delta</td><td class="p-2 border text-right relative"><div class="absolute left-0 top-0 h-full bg-teal-200" style="width: 78%;"></div><span class="relative">9,800</span></td><td class="p-2 border text-center text-yellow-600">▬</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section id="mission-process" class="my-16">
+            <h2 class="text-3xl font-bold text-center mb-10">Tu Proceso Creativo</h2>
+            <div class="bg-white rounded-2xl shadow-xl p-8">
+                 <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
+                    <div class="flowchart-step">
+                        <div class="bg-pink-200 text-3xl font-bold rounded-full w-24 h-24 flex items-center justify-center border-4 border-[#F15BB5]">🎬</div>
+                        <h3 class="mt-4 font-bold">1. Aprende</h3>
+                        <p class="text-sm text-slate-500">Mira "El Estudio de Arte del Dato".</p>
+                    </div>
+                     <div class="flowchart-step">
+                        <div class="bg-yellow-200 text-3xl font-bold rounded-full w-24 h-24 flex items-center justify-center border-4 border-[#F7B801]">🎨</div>
+                        <h3 class="mt-4 font-bold">2. Consulta</h3>
+                        <p class="text-sm text-slate-500">Usa tu "Paleta de Formatos".</p>
+                    </div>
+                     <div class="flowchart-step">
+                        <div class="bg-cyan-200 text-3xl font-bold rounded-full w-24 h-24 flex items-center justify-center border-4 border-[#4ECDC4]">🖌️</div>
+                        <h3 class="mt-4 font-bold">3. Practica</h3>
+                        <p class="text-sm text-slate-500">Pinta en "El Lienzo de Datos".</p>
+                    </div>
+                    <div class="flowchart-step">
+                        <div class="bg-red-200 text-3xl font-bold rounded-full w-24 h-24 flex items-center justify-center border-4 border-[#FF6B6B]">🧠</div>
+                        <h3 class="mt-4 font-bold">4. Demuestra</h3>
+                        <p class="text-sm text-slate-500">Pasa el "Interrogatorio Visual".</p>
+                    </div>
+                    <div class="flowchart-step">
+                        <div class="bg-gradient-to-br from-[#4ECDC4] to-[#45B7D1] text-white text-3xl font-bold rounded-full w-24 h-24 flex items-center justify-center border-4 border-cyan-300">🏆</div>
+                        <h3 class="mt-4 font-bold">5. Conquista</h3>
+                        <p class="text-sm text-slate-500">¡Recibe tu insignia de Maestro!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <footer class="text-center p-6 bg-slate-800 text-white mt-12">
+        <p>Infografía generada para la Misión 4.3 del curso "El Desafío del Dato Organizado".</p>
+    </footer>
+
+    <script>
+        function wrapText(str) {
+            const words = str.split(' ');
+            const lines = [];
+            let currentLine = words[0] || '';
+            const maxChars = 16;
+
+            for (let i = 1; i < words.length; i++) {
+                if ((currentLine + " " + words[i]).length > maxChars) {
+                    lines.push(currentLine);
+                    currentLine = words[i];
+                } else {
+                    currentLine += " " + words[i];
+                }
+            }
+            lines.push(currentLine);
+            return lines.length > 1 ? lines : str;
+        }
+
+        const xpCtx = document.getElementById('xpChart').getContext('2d');
+        const xpChart = new Chart(xpCtx, {
+            type: 'doughnut',
+            data: {
+                labels: [
+                    'El Lienzo Interactivo', 
+                    'Interrogatorio Visual (4 preguntas)', 
+                    'Bono por Optimización'
+                ].map(wrapText),
+                datasets: [{
+                    label: 'Puntos de Experiencia (XP)',
+                    data: [180, 320, 80],
+                    backgroundColor: [
+                        '#F15BB5',
+                        '#4ECDC4',
+                        '#F7B801',
+                    ],
+                    borderColor: '#FFFFFF',
+                    borderWidth: 4,
+                    hoverOffset: 10
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: function(tooltipItems) {
+                                const item = tooltipItems[0];
+                                let label = item.chart.data.labels[item.dataIndex];
+                                if (Array.isArray(label)) {
+                                  return label.join(' ');
+                                } else {
+                                  return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
